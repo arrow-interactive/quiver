@@ -16,4 +16,6 @@ typedef struct Registry {
     void** components;
 } Registry;
 
+Registry* CreateRegistry();
+
 #endif  // PECS_H
