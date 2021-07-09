@@ -20,8 +20,8 @@ int main() {
     // Register your components like this. ComponentTypes are
     // unsigned integers. It is required to pass the Registry
     // pointer so that the component can be registered within it.
-    ComponentType transform = RegisterComponent(reg, sizeof(Transform));
-    ComponentType health = RegisterComponent(reg, sizeof(Health));
+    ComponentType transform = RegisterComponentType(reg, sizeof(Transform));
+    ComponentType health = RegisterComponentType(reg, sizeof(Health));
     // Once registered, you can use the returned ComponentType to
     // refer to the registered component while constructing signatures.
 
