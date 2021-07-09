@@ -17,5 +17,6 @@ typedef struct Registry {
 } Registry;
 
 Registry* CreateRegistry();
+ComponentType RegisterComponentType(Registry* reg, size_t c_size);
 
 #endif  // PECS_H

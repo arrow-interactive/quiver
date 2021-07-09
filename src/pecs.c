@@ -13,3 +13,8 @@ Registry* CreateRegistry() {
     reg->components = malloc(32 * sizeof(int));
     return reg;
 }
+
+ComponentType RegisterComponentType(Registry* reg, size_t c_size) {
+    reg->component_sizes[reg->total_component_types] = c_size;
+    return 1 << reg->total_component_types++;
+}
