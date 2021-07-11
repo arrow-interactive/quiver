@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 
+#define NO_COMPONENTS 0
+
 typedef unsigned int Entity, ComponentType, Signature;
 
 typedef struct Registry {

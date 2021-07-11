@@ -30,9 +30,9 @@ int main() {
     // NULL to create an empty entity.
     Entity player = CreateEntity(reg, transform + health);
     // player is an Entity with Transform and Health components.
-    Entity empty = CreateEntity(reg, NULL);
-    // empty is an entity with no components. You can also pass
-    // 0 to CreateEntity instead of NULL.
+    Entity empty = CreateEntity(reg, NO_COMPONENTS);
+    // Pass NO_COMPONENTS as the signature to create
+    // an entity with no components (empty entity).
 
     // You can check if an entity has atleast a certain combination
     // of entities by using HasComponents. Pass the Registry pointer,
