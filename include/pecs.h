@@ -18,5 +18,6 @@ typedef struct Registry {
 
 Registry* CreateRegistry();
 ComponentType RegisterComponentType(Registry* reg, size_t c_size);
+Entity CreateEntity(Registry* reg, Signature sig);
 
 #endif  // PECS_H

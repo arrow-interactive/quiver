@@ -23,3 +23,11 @@ ComponentType RegisterComponentType(Registry* reg, size_t c_size) {
     reg->component_sizes[reg->total_component_types] = c_size;
     return 1 << reg->total_component_types++;
 }
+
+Entity CreateEntity(Registry* reg, Signature sig) {
+    // Assume that the signature at index i
+    // corresponds to the entity i for now.
+    // TODO: Implement lookup table here.
+    reg->signatures[reg->total_entities] = sig;
+    return reg->total_entities++;
+}
