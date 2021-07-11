@@ -1,4 +1,5 @@
 compile_commands.json
+src/test.c
 Makefile
 bin
 .cache
