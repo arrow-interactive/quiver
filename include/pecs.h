@@ -13,7 +13,7 @@ typedef struct Registry {
     // Components related:
     ComponentType total_component_types;
     size_t* component_sizes;
-    void** components;
+    void** components_array;
 } Registry;
 
 Registry* CreateRegistry();

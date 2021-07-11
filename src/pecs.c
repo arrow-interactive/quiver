@@ -10,7 +10,7 @@ Registry* CreateRegistry() {
     reg->total_component_types = 0;
     // Allocate space for 32 components:
     reg->component_sizes = malloc(32 * sizeof(int));
-    reg->components = malloc(32 * sizeof(int));
+    reg->components_array = malloc(32 * sizeof(int));
     return reg;
 }
 
