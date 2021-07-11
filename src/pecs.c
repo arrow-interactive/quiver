@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "pecs.h"
 
 Registry* CreateRegistry() {
@@ -15,6 +16,10 @@ Registry* CreateRegistry() {
 }
 
 ComponentType RegisterComponentType(Registry* reg, size_t c_size) {
+    if (reg->total_component_types == 32) {
+        printf("[Quiver::RegisterComponentType()]: There can only be 32 component types. Not registering the 33rd one.\n");
+        return 0;
+    }
     reg->component_sizes[reg->total_component_types] = c_size;
     return 1 << reg->total_component_types++;
 }
