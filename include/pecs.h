@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 
+typedef unsigned char u8;
 typedef unsigned int Entity, ComponentType, Signature;
 
 typedef struct Registry {
@@ -19,5 +20,6 @@ typedef struct Registry {
 Registry* CreateRegistry();
 ComponentType RegisterComponentType(Registry* reg, size_t c_size);
 Entity CreateEntity(Registry* reg, Signature sig);
+u8 HasComponents(Registry* reg, Entity ent, Signature sig);
 
 #endif  // PECS_H

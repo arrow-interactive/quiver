@@ -31,3 +31,10 @@ Entity CreateEntity(Registry* reg, Signature sig) {
     reg->signatures[reg->total_entities] = sig;
     return reg->total_entities++;
 }
+
+u8 HasComponents(Registry* reg, Entity ent, Signature sig) {
+    // Assume that the signature at index i
+    // corresponds to the entity i for now.
+    // TOTO: Implement lookup table here.
+    return (reg->signatures[ent] & sig) == sig;
+}
