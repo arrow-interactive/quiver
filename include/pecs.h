@@ -21,5 +21,7 @@ Registry* CreateRegistry();
 ComponentType RegisterComponentType(Registry* reg, size_t c_size);
 Entity CreateEntity(Registry* reg, Signature sig);
 u8 HasComponents(Registry* reg, Entity ent, Signature sig);
+int GetComponentIndex(ComponentType ct);
+void* GetComponent(Registry* reg, Entity ent, ComponentType ct);
 
 #endif  // PECS_H
