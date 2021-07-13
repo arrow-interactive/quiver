@@ -1,5 +1,5 @@
-#ifndef PECS_H
-#define PECS_H
+#ifndef QUIVER_H
+#define QUIVER_H
 
 #include <stdlib.h>
 
@@ -26,4 +26,4 @@ u8 HasComponents(Registry* reg, Entity ent, Signature sig);
 int GetComponentIndex(ComponentType ct);
 void* GetComponent(Registry* reg, Entity ent, ComponentType ct);
 
-#endif  // PECS_H
+#endif  // QUIVER_H

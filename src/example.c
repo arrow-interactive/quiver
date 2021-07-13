@@ -1,6 +1,6 @@
-// Include pecs.h and compile
-// pecs.c along with your project.
-#include "pecs.h"
+// Include quiver.h and compile
+// quiver.c along with your project.
+#include "quiver.h"
 
 // Define your components as structs.
 typedef struct Transform {
@@ -26,7 +26,7 @@ int main() {
     // refer to the registered component while constructing signatures.
 
     // Create entities like this. Again, a Registry pointer is needed.
-    // Pass the signature of the entity while creating it, or pass 
+    // Pass the signature of the entity while creating it, or pass
     // NO_COMPONENTS to create an empty entity.
     Entity player = CreateEntity(reg, transform + health);
     // player is an Entity with Transform and Health components.
