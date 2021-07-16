@@ -3,11 +3,13 @@
 #include <math.h>
 #include "quiver.h"
 
-Registry* CreateRegistry() {
+Registry* CreateRegistry(unsigned int max_ent) {
     Registry* reg = malloc(sizeof(Registry));
-    reg->total_entities = 0;
-    // Allocate enough memory for 10 entities for now:
-    reg->signatures = malloc(10 * sizeof(Signature));
+    reg->max_entities = max_ent;
+    reg->active_entities = 0;
+    reg->destroyed_entities = 0;
+    reg->destroyed_entity_array = malloc(max_ent * sizeof(Entity));
+    reg->signatures = malloc(max_ent * sizeof(Signature));
 
     reg->total_component_types = 0;
     // Allocate space for 32 components:
@@ -18,20 +20,50 @@ Registry* CreateRegistry() {
 
 ComponentType RegisterComponentType(Registry* reg, size_t c_size) {
     if (reg->total_component_types == 32) {
-        printf("[Quiver::RegisterComponentType()]: Component limit exceeded!\n");
+        printf("[QVR::RegisterComponentType()]: Component limit exceeded!\n");
         return 0;
     }
     reg->component_sizes[reg->total_component_types] = c_size;
-    reg->components_array[reg->total_component_types] = malloc(10 * c_size);
+    reg->components_array[reg->total_component_types] = malloc(reg->max_entities * c_size);
     return 1 << reg->total_component_types++;
+}
+
+void ReAllocateMem(Registry* reg) {
+    reg->max_entities *= 2;
+    Entity* old_dea = reg->destroyed_entity_array;
+    reg->destroyed_entity_array = realloc(old_dea, reg->max_entities * sizeof(Entity));
 }
 
 Entity CreateEntity(Registry* reg, Signature sig) {
     // Assume that the signature at index i
     // corresponds to the entity i for now.
     // TODO: Implement lookup table here.
-    reg->signatures[reg->total_entities] = sig;
-    return reg->total_entities++;
+    if (reg->active_entities == reg->max_entities)
+        ReAllocateMem(reg);
+
+    if (reg->destroyed_entities > 0) {
+        Entity new_entity = reg->destroyed_entity_array[--reg->destroyed_entities];
+        reg->signatures[new_entity] = sig;
+        return new_entity;
+    }
+    reg->signatures[reg->active_entities] = sig;
+    return reg->active_entities++;
+}
+
+void DestroyEntity(Registry* reg, Entity ent) {
+    // TODO: Use lookup table to delete the
+    // components of this entity too.
+    if (ent > reg->active_entities - 1) {
+        printf("[QVR::DestroyEntity()]: Cannot destroy non-existent entities. Ignoring...\n");
+        return;
+    }
+    for (int i = 0; i < reg->destroyed_entities; i++) {
+        if (reg->destroyed_entity_array[i] == ent) {
+            printf("[QVR::DestroyEntity()]: Cannot destroy already-destroyed entities. Ignoring...\n");
+            return;
+        }
+    }
+    reg->destroyed_entity_array[reg->destroyed_entities++] = ent;
 }
 
 void AddComponent(Registry* reg, Entity ent, ComponentType ct) {

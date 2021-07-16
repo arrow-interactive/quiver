@@ -13,9 +13,11 @@ typedef struct Health {
 // There can be a maximum of 32 components.
 
 int main() {
-    // Create a registry like this. The registry
-    // will contain the state of the entire ECS.
-    Registry* reg = CreateRegistry();
+    // Create a registry like this, by passing
+    // the number of entities to allocate memory
+    // for, initially. The registry will contain
+    // the state of the entire ECS.
+    Registry* reg = CreateRegistry(1024);
 
     // Register your components like this. ComponentTypes are
     // unsigned integers. It is required to pass the Registry
@@ -34,6 +36,12 @@ int main() {
     // Pass NO_COMPONENTS as the signature to create
     // an entity with no components (empty entity).
 
+    // Add components to entities like so.
+    AddComponent(reg, empty, transform);
+
+    // Destroy entities like so:
+    DestroyEntity(reg, empty);
+
     // You can check if an entity has atleast a certain combination
     // of entities by using HasComponents. Pass the Registry pointer,
     // the entity itself, and finally the signature to check for.
@@ -46,5 +54,5 @@ int main() {
     // itself, and finally the component you want to grab.
     Health* player_health = GetComponent(reg, player, health);
 
-    // TODO: Design AddComponent, RemoveComponent and DestroyEntity.
+    // TODO: Design RemoveComponent.
 }
